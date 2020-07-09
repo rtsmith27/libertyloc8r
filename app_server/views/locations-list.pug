@@ -1,217 +1,23 @@
 extends layout
-
+include _includes/sharedHTMLfunctions
 block content
   .row.banner
     .col-12
-      h1 Loc8r
-        small &nbsp;Find places to work with wifi near you!
+      h1= pageHeader.title
+        small &nbsp;#{pageHeader.strapline}
   .row
     .col-12.col-md-8
-      .card
-        .card-block
+      each location in locations
+        .card
+          .card-block
           h4
-            a(href="/location")  McDonalds's
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.far.fa-star
-            span.badge.badge-pill.badge-default.float-right 1.8 miles
-          p.address 918 S Rte 291, Liberty, MO 64068
-          p.phone (816)792-1122
-          p.facilities
-            span.badge.badge-warning Hot drinks
-            span.badge.badge-warning Food
-            span.badge.badge-warning Premium wifi
-      .card
-        .card-block
-          h4
-            a(href="/location")  Dunkin'
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.far.fa-star
-              i.far.fa-star
-              i.far.fa-star
-            span.badge.badge-pill.badge-default.float-right 1.8 miles
-          p.address 953 W Liberty Dr, Liberty, MO 64068
-          p.phone (816)415-3770
-          p.facilities
-            span.badge.badge-warning Hot drinks
-            span.badge.badge-warning Food
-            span.badge.badge-warning Wifi
-      .card
-        .card-block
-          h4
-            a(href="/location")  The Big Biscuit
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.far.fa-star
-              i.far.fa-star
-            span.badge.badge-pill.badge-default.float-right 2.0 miles
-          p.address 840 Rte 291, Liberty, MO 64068
-          p.phone (816)429-5314
-          p.facilities
-            span.badge.badge-warning Hot drinks
-            span.badge.badge-warning Food
-            span.badge.badge-warning Wifi
-      .card
-        .card-block
-          h4
-            a(href="/location")  Over Flow Coffee House
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-            span.badge.badge-pill.badge-default.float-right 2.2 miles
-          p.address 1005 Middlebrook Dr Ste E, Liberty, MO 64068
-          p.phone (816)328-8242
-          p.facilities
-            span.badge.badge-warning Hot drinks
-            span.badge.badge-warning Food
-            span.badge.badge-warning Premium wifi
-      .card
-        .card-block
-          h4
-            a(href="/location")  Cici's Pizza
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.far.fa-star
-              i.far.fa-star
-            span.badge.badge-pill.badge-default.float-right 2.7 miles
-          p.address 202 N State Route 291, Liberty, MO 64068
-          p.phone (816)792-2428
-          p.facilities
-            span.badge.badge-warning Food
-            span.badge.badge-warning Wifi
-      .card
-        .card-block
-          h4
-            a(href="/location")  Cariboo Coffee
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-            span.badge.badge-pill.badge-default.float-right 2.8 miles
-          p.address 300 N Rte 291, Liberty, MO 64068
-          p.phone (816)415-3998
-          p.facilities
-            span.badge.badge-warning Hot drinks
-            span.badge.badge-warning Food
-            span.badge.badge-warning Premium wifi      
-      .card
-        .card-block
-          h4
-            a(href="/location")  Starbucks
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-            span.badge.badge-pill.badge-default.float-right 3.0 miles
-          p.address 1915 Star Dr, Liberty, MO 64068
-          p.phone (816)792-0018
-          p.facilities
-            span.badge.badge-warning Hot drinks
-            span.badge.badge-warning Food
-            span.badge.badge-warning Premium wifi
-      .card
-        .card-block
-          h4
-            a(href="/location")  McAlister's Deli
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.far.fa-star
-            span.badge.badge-pill.badge-default.float-right 3.4 miles
-          p.address 127 S Stewart Rd Ste 100, Liberty, MO 64068
-          p.phone (816)781-8215
-          p.facilities
-            span.badge.badge-warning Food
-            span.badge.badge-warning Premium wifi
-      .card
-        .card-block
-          h4
-            a(href="/location")  McDonald's
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.far.fa-star
-            span.badge.badge-pill.badge-default.float-right 3.5 miles
-          p.address 9851 NE Barry Rd, Kansas City, MO 64157
-          p.phone (816)792-1126
-          p.facilities
-            span.badge.badge-warning Hot drinks
-            span.badge.badge-warning Food
-            span.badge.badge-warning Premium wifi      
-      .card
-        .card-block
-          h4
-            a(href="/location")  Panera Bread
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-            span.badge.badge-pill.badge-default.float-right 3.5 miles
-          p.address 8580 Church Rd, Kansas City, MO 64157
-          p.phone (816)792-1126
-          p.facilities
-            span.badge.badge-warning Hot drinks
-            span.badge.badge-warning Food
-            span.badge.badge-warning Bakery      
-            span.badge.badge-warning Premium wifi      
-      .card
-        .card-block
-          h4
-            a(href="/location")  Cracker Barrel Old Country Store
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.far.fa-star
-              i.far.fa-star
-            span.badge.badge-pill.badge-default.float-right 3.8 miles
-          p.address 8225 N Church Rd, Kansas City, MO 64158
-          p.phone (816)781-1444
-          p.facilities
-            span.badge.badge-warning Hot drinks
-            span.badge.badge-warning Food
-            span.badge.badge-warning Premium wifi      
-            span.badge.badge-warning Gift Shop      
-      .card
-        .card-block
-          h4
-            a(href="/location")  First Watch
-            small &nbsp &nbsp &nbsp;
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.fas.fa-star
-              i.far.fa-star
-            span.badge.badge-pill.badge-default.float-right 4.4 miles
-          p.address 8758 NE 82nd Terrace, Kansas City, MO 64158
-          p.phone (816)659-7054
-          p.facilities
-            span.badge.badge-warning Hot drinks
-            span.badge.badge-warning Food
-            span.badge.badge-warning Wifi      
-
+            a(href="/location")= location.name
+            +outputRating(location.rating)   
+            small &nbsp;
+            span.badge.badge-pill.badge-default.float-right= location.distance
+          p.address= location.address
+          .phone= location.phone
+          .facilities
+            span.badge.badge-warning= facility
     .col-12.col-md-4
-      p.lead Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.
+      p.lead= sidebar
