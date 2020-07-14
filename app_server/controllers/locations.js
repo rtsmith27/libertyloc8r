@@ -4,18 +4,18 @@ const homelist = (req, res) => {
       title: 'Loc8r - find a place to work with wifi',
       pageHeader: {
         title: 'Loc8r',
-        strapline: 'Find places to work with wifi near you!'
+        strapline: 'Find places to work with wifi near you!',
+        sidebar: 'Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you\'re looking for.',
       },
-      sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.",
       locations: [{
-        name: "McDonald's",
+        name: 'McDonald\'s',
         address: '918 S Rte 291, Liberty, MO 64068',
         phone: '(816)792-1122',
         rating: 4,
         facilities: ['Hot Drinks','Food','Premium wifi'],
         distance: '1.8 miles'
       },{
-        name: "Dunkin'",
+        name: 'Dunkin\'',
         address: '953 W Liberty Dr, Liberty, MO 64068',
         phone: '(816)415-3770',
         rating: 2,
@@ -36,7 +36,7 @@ const homelist = (req, res) => {
         facilities: ['Hot Drinks','Food','Premium wifi'],
         distance: '2.2 miles'
       },{
-        name: "Cici's Pizza",
+        name: 'Cici\'s Pizza',
         address: '202 N State Route 291, Liberty, MO 64068',
         phone: '(816)792-2428',
         rating: 3,
@@ -57,14 +57,14 @@ const homelist = (req, res) => {
         facilities: ['Hot Drinks','Food','Premium wifi'],
         distance: '3.0 miles'
       },{
-        name: "McAlister's Deli",
+        name: 'McAlister\'s Deli',
         address: '127 S Stewart Rd Ste 100, Liberty, MO 64068',
         phone: '(816)781-8215',
         rating: 4,
         facilities: ['Food','Premium wifi'],
         distance: '3.4 miles'
       },{
-        name: "McDonald's",
+        name: 'McDonald\'s',
         address: '9851 NE Barry Rd, Kansas City, MO 64157',
         phone: '(816)792-1126',
         rating: 4,
@@ -98,8 +98,8 @@ const homelist = (req, res) => {
 /* GET 'Location info' page */
 const locationInfo = function(req, res) {
     res.render('location-info', {
-      title: "McDonald's",
-      pageHeader: {title: "McDonald's"},
+      title: 'McDonald\'s',
+      pageHeader: {title: 'McDonald\'s'},
       sidebar: {
         context: 'is on Loc8r because it has accessible wifi and space to sit down with your laptop and get some work done.',
         callToAction: 'If you\'ve been and you like it - or if you don\'t - please leave a review to help other people just like you.'

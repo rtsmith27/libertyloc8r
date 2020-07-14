@@ -42,10 +42,11 @@ a.navbar-brand {
 .card {
     background-color: #469ea8;
     padding: 1rem;
+    border-color: #aaa;
 }
 
 .card-primary {
-    border-color: #a2ced3;
+    border-color: #aaa;
     margin-bottom: 0.5rem;
 }
 
@@ -102,7 +103,7 @@ p {
 
 a {
     color: rgba(255, 255, 255, 0.8)
-}
+    }
 
     a:hover {
         color: #fff
@@ -112,4 +113,8 @@ body {
     font-family: "Cabin", Arial, sans-serif;
     color: #fff;
     background-color: #108a93;
+}
+
+.fa, .far, .fas {
+    color: gold;
 }
