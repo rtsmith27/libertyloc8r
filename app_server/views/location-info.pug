@@ -10,8 +10,8 @@ block content
         .col-12.col-md-6
           p.rating
             +outputRating(location.rating)
-          p 918 S Rte 291, Liberty, MO 64068
-          p (816)792-1122
+          p= location.address
+          p= location.phone
           .card.card-primary
             .card-block
               h2.card-title Opening hours
