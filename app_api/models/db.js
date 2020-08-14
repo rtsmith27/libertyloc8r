@@ -1,15 +1,11 @@
 const mongoose = require('mongoose');
-const host = process.env.DB_HOST || 'mongodb://127.0.0.1/';
+const host = process.env.DB_HOST || 'mongodb://127.0.0.1/loc8r';
 const dbURL = `${host}`;
 const readLine = require ('readline');
 
 const connect = () => {
     setTimeout(() => mongoose.connect(dbURL, { useNewUrlParser: true, useCreateIndex: true }), 1000);
   }
-
-const { hostname } = require('os');
-// const { connect } = require('http2');
-
 
 mongoose.connection.on('connected', () => {
     console.log('Mongoose is connected');
@@ -21,17 +17,6 @@ mongoose.connection.on('error', err => {
 mongoose.connection.on('disconnected', () => {
     console.log('Mongoose is disconnected');
 });
-
-
-if (process.platform === 'win32'){
-    const rl = readLine.createInterface ({
-        input: process.stdin,
-        output: process.stdout
-    });
-    rl.on ('SIGINT', () => {
-        process.emit ("SIGINT");
-    });
-}
 
 const gracefulShutdown = (msg, callback) => {
     mongoose.connection.close( () => {

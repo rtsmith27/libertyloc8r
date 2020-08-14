@@ -42,11 +42,11 @@ a.navbar-brand {
 .card {
     background-color: #469ea8;
     padding: 1rem;
-    border-color: #aaa;
+    border-color: gold;/*#aaa;*/
 }
 
 .card-primary {
-    border-color: #aaa;
+    border-color: gold;/*#aaa*/
     margin-bottom: 0.5rem;
 }
 
@@ -73,6 +73,11 @@ a.navbar-brand {
 .badge-default, .btn-primary {
     background-color: #ad1d28;
     border-color: #911821;
+}
+
+.form-control {
+    border-color: gold;
+    border-width: 2px;
 }
 
 h4 a, h4 a:hover {
@@ -115,6 +120,6 @@ body {
     background-color: #108a93;
 }
 
-.fa, .far, .fas {
+ .far, .fas {
     color: gold;
 }

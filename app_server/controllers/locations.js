@@ -1,155 +1,191 @@
+const request = require('request');
+const { response } = require('express');
+let apiOptions = { //if let dosen't work change to const
+  server: 'http://localhost:3000'
+};
+if (process.env.NODE_ENV === 'production') {
+  apiOptions.server = 'https://libertyloc8r.herokuapp.com/';
+}
+
+const formatDistance = function(distance) {
+  distance = parseFloat(distance);'https://libertyloc8r.herokuapp.com/'
+  if (distance && isNumeric(distance)) {
+  let thisDistance = 0;
+  let unit = ' m';
+  if (distance > 1000) {
+    thisDistance = parseFloat(distance / 1000).toFixed(1);
+    unit = ' k';
+  } else {
+    thisDistance = Math.floor(distance);
+  }  
+  return thisDistance + unit;
+} else {
+  return'?';  
+  }
+};
+const isNumeric=function(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+};
+
+const showError = (req, res, status) => {
+  let title = '';
+  let content = '';
+  if (status === 404) {
+    title = '404, page not found';
+    content = 'Oh dear. Looks like this page is missing. Sorry.';
+  } else {
+    tile = `${status}, something's gone wrong`;
+    content = 'Something, somewhere, has gone just a little bit wrong.';
+  }
+  res.status(status);
+  res.render('generic-text', {
+    title,
+    content
+  });
+  };
+
 /* GET 'home' page */
-const homelist = (req, res) => {
+const renderHomepage = (req, res, responseBody) => {
+  let message = null;
+  if (!(responseBody instanceof Array)) {
+    message = "API lookup error";
+    responseBody = [];
+  } else {
+    if (!responseBody.length) {
+      message = "No locations found nearby";
+    }
+  } 
     res.render('locations-list', { 
       title: 'Loc8r - find a place to work with wifi',
       pageHeader: {
         title: 'Loc8r',
-        strapline: 'Find places to work with wifi near you!',
-        sidebar: 'Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you\'re looking for.',
-      },
-      locations: [{
-        name: 'McDonald\'s',
-        address: '918 S Rte 291, Liberty, MO 64068',
-        phone: '(816)792-1122',
-        rating: 4,
-        facilities: ['Hot Drinks','Food','Premium wifi'],
-        distance: '1.8 miles'
-      },{
-        name: 'Dunkin\'',
-        address: '953 W Liberty Dr, Liberty, MO 64068',
-        phone: '(816)415-3770',
-        rating: 2,
-        facilities: ['Hot drinks','Food','Wifi'],
-        distance: '1.8 miles'
-      },{
-        name: 'The Big Biscuit',
-        address: '840 Rte 291, Liberty, MO 64068',
-        phone: '(816)429-5314',
-        rating: 3,
-        facilities: ['Hot Drinks','Food','Wifi'],
-        distance: '2.0 miles'
-      },{
-        name: 'Over Flow Coffee House',
-        address: '1005 Middlebrook Dr Ste E, Liberty, MO 64068',
-        phone: '(816)328-8242',
-        rating: 5,
-        facilities: ['Hot Drinks','Food','Premium wifi'],
-        distance: '2.2 miles'
-      },{
-        name: 'Cici\'s Pizza',
-        address: '202 N State Route 291, Liberty, MO 64068',
-        phone: '(816)792-2428',
-        rating: 3,
-        facilities: ['Food','Wifi'],
-        distance: '2.7 miles'
-      },{
-        name: 'Cariboo Coffee',
-        address: '300 N Rte 291, Liberty, MO 64068',
-        phone: '(816)415-3998',
-        rating: 5,
-        facilities: ['Hot Drinks','Food','Premium wifi'],
-        distance: '2.8 miles'
-      },{
-        name: 'Starbucks',
-        address: '1915 Star Dr, Liberty, MO 64068',
-        phone: '(816)792-0018',
-        rating: 5,
-        facilities: ['Hot Drinks','Food','Premium wifi'],
-        distance: '3.0 miles'
-      },{
-        name: 'McAlister\'s Deli',
-        address: '127 S Stewart Rd Ste 100, Liberty, MO 64068',
-        phone: '(816)781-8215',
-        rating: 4,
-        facilities: ['Food','Premium wifi'],
-        distance: '3.4 miles'
-      },{
-        name: 'McDonald\'s',
-        address: '9851 NE Barry Rd, Kansas City, MO 64157',
-        phone: '(816)792-1126',
-        rating: 4,
-        facilities: ['Hot Drinks','Food','Premium wifi'],
-        distance: '3.5 miles'
-      },{
-        name: 'Panera Bread',
-        address: '8580 Church Rd, Kansas City, MO 64157',
-        phone: '(816)792-1991',
-        rating: 5,
-        facilities: ['Hot drinks','Food','Bakery','Premium wifi'],
-        distance: '3.5 miles'
-      },{
-        name: 'Cracker Barrel Old Country Store',
-        address: '8225 N Church Rd, Kansas City, MO 64158',
-        phone: '(816)781-1444',
-        rating: 3,
-        facilities: ['Hot drinks','Food','Premium wifi','Gift Shop'],
-        distance: '3.8 miles'
-      },{
-        name: 'First Watch',
-        address: '8758 NE 82nd Terrace, Kansas City, MO 64158',
-        phone: '(816)659-7054',
-        rating: 4,
-        facilities: ['Hot drinks','Food','Wifi'],
-        distance: '4.4 miles'
-      }]
-    });
-  };
+        strapline: 'Find places to work with wifi near you!'
+        },
+        sidebar: 'Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee and cake, or a burger and a pint? Let Loc8r help you find the place you\'re looking for.',
+        locations: responseBody,
+        message
+      });
+    };
 
+const homelist = function (req, res) {
+const path = '/api/locations';
+const requestOptions = {
+    url: apiOptions.server + path,
+    method: 'GET',
+    json: {},
+    qs: {
+      lng: -94.410569,
+      lat: 39.234315,
+        maxDistance: 20000
+    }
+};
+request(
+    requestOptions,
+    (err, response, body) => {
+       let data = body;
+        if (response.statusCode === 200 && data.length) {
+            for (let i = 0; i < data.length; i++) {
+                data[i].distance = formatDistance(data[i].distance);
+            }
+        }
+        renderHomepage(req, res, data);
+    }
+  );
+ };
+
+const renderDetailPage = (req, res, location) => {
+  res.render('location-info', {
+    title: location.name,
+    pageHeader: {
+      tile: location.name,
+    },
+    sidebar: {
+      context: 'is on Loc8r because it has accessible wifi and space to sit down with your laptop and get some work done.',
+      callToAction: "If you've been and you like it - or if you don't - please leave a review to help other people just like you."
+    },
+    location
+  });
+};
 /* GET 'Location info' page */
-const locationInfo = function(req, res) {
-    res.render('location-info', {
-      title: 'McDonald\'s',
-      pageHeader: {title: 'McDonald\'s'},
-      sidebar: {
-        context: 'is on Loc8r because it has accessible wifi and space to sit down with your laptop and get some work done.',
-        callToAction: 'If you\'ve been and you like it - or if you don\'t - please leave a review to help other people just like you.'
-      },
-      location: {
-        name: 'McDonald\'s',
-        address: '918 S Rte 291, Liberty, MO 64068',
-        phone: '(816)792-1122',
-        rating: 4,
-        facilities: ['Hot drinks','Food','Premium wifi'],
-        coords: {lat: 39.236942, lng: -94.433409},
-        openingTimes: [{
-          days: 'Monday - Friday',
-          opening: '7:00am',
-          closing: '7:00pm',
-          closed: false
-        },{
-          days: 'Saturday',
-          opening: '8:00am',
-          closing: '5:00pm',
-          closed: false
-        },{
-          days: 'Sunday',
-          closed: true
-        }],
-        reviews: [{
-          author: 'Simon Cowell',
-          rating: 5,
-          timestamp: '16 February 2020',
-          reviewText: 'What a great place. Best burger I\'ve ever had!',
-        },{
-          author: 'Patrick Mahomes',
-          rating: 3,
-          timestamp: '2 Feburary 2020',
-          reviewText: 'It was okay. Coffee wans\'t great. It\'s no Whatabuger!'
-        }]
-       }
-     });
-  }; 
+const getLocationInfo = (req, res, callback) => {
+  const path = `/api/locations/${req.params.locationid}`;
+  const requestOptions = {
+    url: `${apiOptions.server}${path}`,
+    method: 'GET',
+    json: {}
+  };
+  request(
+    requestOptions,
+    (err, {statusCode}, body) => {
+      const data = body;
+      if (statusCode === 200) {
+        data.coords = {
+          lng: body.coords[0],
+          lat: body.coords[1]
+        };
+        callback(req, res, data);
+      } else {
+        showError(req, res, statusCode);
+      }
+    }
+  );
+};
 
-  /* GET 'Add review' page */
-const addReview = function(req, res) {
+const locationInfo = (req, res) => {
+  getLocationInfo(req, res,
+    (req, res, responseData) => renderDetailPage(req, res, responseData)
+  );
+}; 
+  
+const renderReviewForm = (req, res, {name}) => {
     res.render('location-review-form', {
-     title: 'Review McDonald\'s on Loc8r',
-     pageHeader: { title: 'Review McDonald\'s' }
+     title: `Review ${name} on Loc8r`,
+     pageHeader: { title: `Review ${name}` },
+     error: req.query.err
     });
   }; 
+  
+const addReview = (req, res) => {
+  getLocationInfo(req, res,
+    (req, res, responseData) => renderReviewForm(req, res, responseData)
+  );
+};
+ 
+ const doAddReview = (req, res) => {
+  const locationid = req.params.locationid;
+  const path = `/api/locations/${locationid}/reviews`;
+  const postdata = {
+    author: req.body.name,
+    rating: parseInt(req.body.rating, 10),
+    reviewText: req.body.review
+  };
+  const requestOptions = {
+    url: `${apiOptions.server}${path}`,
+    method: 'POST',
+    json: postdata
+  };
+  if (!postdata.author || !postdata.rating || !postdata.reviewText) {
+    res.redirect(`/location/${locationid}/review/new?err=val`);
+  } else {
+    request(
+      requestOptions,
+      (err, {statusCode}, {name}) => {
+        if (statusCode === 201) {
+          res.redirect(`/location/${locationid}`);
+        } else if (statusCode === 400 && name && name === 'ValidationError') {
+          res.redirect(`/location/${locationid}/review/new?err=val`);
+        } else {
+          showError(req, res, statusCode);
+        }
+      }
+    );
+  }
+};
+
 
   module.exports = {
       homelist,
       locationInfo,
-      addReview
+      addReview,
+      doAddReview
   };
