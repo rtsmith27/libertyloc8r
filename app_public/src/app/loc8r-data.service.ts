@@ -9,8 +9,8 @@ export class Loc8rDataService {
 
   constructor(private http: HttpClient) { }
   
-    private apiBaseUrl = 'http://localhost:3000/api'; //use this for devlopment
-    // private apiBaseUrl = 'https://libertyloc8r.herokuapp.com/api'; /*input heroku url for publishing */
+    // private apiBaseUrl = 'http://localhost:3000/api'; //use this for devlopment
+    private apiBaseUrl = 'http://libertyloc8r.herokuapp.com/api'; /*input heroku url for publishing */
     
     public getLocations(lat: number, lng: number): Promise<Location[]> {
       const maxDistance: number = 20000;
