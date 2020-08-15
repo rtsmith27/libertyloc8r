@@ -8,7 +8,7 @@ require('./app_api/models/db');
 const indexRouter = require('./app_server/routes/index');
 const apiRouter = require('./app_api/routes/index');
 
-const app = express();
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));

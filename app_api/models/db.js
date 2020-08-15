@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
-const host = process.env.DB_HOST || 'mongodb://127.0.0.1/loc8r';
-const dbURL = `${host}`;
 const readLine = require ('readline');
+
+/* Where did this come from */
+let dbURL = 'mongodb://127.0.0.1/loc8r';
+if (process.env.NODE_ENV === 'production') {
+    dbURL = process.env.DB_HOST || process.env.MONGOODB_URI;
+}
+// const host = process.env.DB_HOST || 'mongodb://127.0.0.1/loc8r';
+// const dbURL = `${host}`;
 
 const connect = () => {
     setTimeout(() => mongoose.connect(dbURL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }), 1000);
@@ -14,9 +20,21 @@ mongoose.connection.on('error', err => {
     console.log('Mongoose connection error: ' + err);
     return connect();
 });
+
 mongoose.connection.on('disconnected', () => {
     console.log('Mongoose is disconnected');
 });
+
+/* Where did this come from */
+if (process.platform === 'win32') {
+    const rl = readLine.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    rl.on ('SIGINT', () => {
+        process.emit("SIGINT");
+    });
+}
 
 const gracefulShutdown = (msg, callback) => {
     mongoose.connection.close( () => {
@@ -40,5 +58,6 @@ process.on('SIGTERM', () => {
         process.exit (0);
     });
 });
+
 connect();
 require('./locations');
