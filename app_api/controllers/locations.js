@@ -107,7 +107,7 @@ const locationsReadOne = (req, res) => {
         return res
           .status(200)
           .json(location);
-        console.log(location);
+        // console.log(location);
       }
     });
 };
@@ -171,7 +171,7 @@ const locationsUpdateOne = (req, res) => {
         }
       });
     }
-    );
+  );
 };
 
 const locationsDeleteOne = (req, res) => {
@@ -188,7 +188,7 @@ const locationsDeleteOne = (req, res) => {
         res
           .status(204)
           .json(null);
-      }
+        }
       );
   } else {
     res
