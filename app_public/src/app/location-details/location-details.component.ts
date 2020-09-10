@@ -59,4 +59,4 @@ public onReviewSubmit(): void {
       this. newReview.rating = 5;
       this. newReview.reviewText = '';
     }
-  }
+}

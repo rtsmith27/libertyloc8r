@@ -23,7 +23,7 @@ export class Location {
     phone: string;
     rating: number;
     facilities: string[];
-    reviews: Review[];
+    reviews: any[];
     coords: Coords;
     openingTimes: OpeningTimes[];
   }

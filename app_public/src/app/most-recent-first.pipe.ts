@@ -4,7 +4,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'mostRecentFirst'
 })
 export class MostRecentFirstPipe implements PipeTransform {
-
+  
+  transform(reviews: any[]): any[] {
+    if (reviews && reviews.length > 0) {
+      return reviews.sort(this.compare);
+    }
+    return null;
+  }
+  
   private compare(a, b) {
     const createdOnA = a.createdOn;
     const createdOnB = b.createdOn;
@@ -16,10 +23,4 @@ export class MostRecentFirstPipe implements PipeTransform {
     return comparison;
   }  
 
-  transform(reviews: any[]): any[] {
-    if (reviews && reviews.length > 0) {
-      return reviews.sort(this.compare);
-    }
-    return null;
-  }
 }
