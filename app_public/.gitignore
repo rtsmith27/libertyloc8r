@@ -44,6 +44,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-#googleAPIKey
-string = 'AIzaSyD6U8pEB0LvAq2Gt56p1unnx1aGUqLYUFc';
