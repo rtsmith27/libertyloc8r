@@ -21,7 +21,8 @@ export class LocationDetailsComponent implements OnInit {
   public formError: string;
   
   public googleAPIKey: string = 'AIzaSyD6U8pEB0LvAq2Gt56p1unnx1aGUqLYUFc';
-  
+  // New API Key
+
   constructor(private loc8rDataService: Loc8rDataService) { }
   
   ngOnInit() {
